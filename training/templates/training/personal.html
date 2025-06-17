@@ -2,13 +2,13 @@
 <link rel="stylesheet" type="text/css" href="{% static 'training/style.css' %}">
 
 {% if resource_data %}
-    <h1>Personal Training Feed</h1>
+    <h1>Personal Training Feed for {{username}}</h1>
     <table id="table">
         <thead>
             <tr>
                 <th>Title</th>
                 <th>Notion Link</th>
-                <th onclick="sortTableByDate()">Training Date</th>
+                <th onclick="sortTableByDate()">Training Date <img src="{% static 'training/arrow-down-up.svg' %}" width="20px" height="20px"/></th>
                 <th>Who Ran It</th>
                 <th>Team</th>
             </tr>

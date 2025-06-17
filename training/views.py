@@ -22,7 +22,13 @@ class UserView(generic.ListView):
     def get_queryset(self):
         pk = self.kwargs.get('pk')
         return Resource.objects.filter(user_id=pk)
-
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        user = Resource.objects.get(pk=pk)
+        context['username'] = user.user.username
+        return context
 
 class TeamView(generic.ListView):
     context_object_name = 'resource_data'
