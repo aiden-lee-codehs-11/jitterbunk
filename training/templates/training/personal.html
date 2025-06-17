@@ -1,15 +1,14 @@
 {% load static %}
-
 <link rel="stylesheet" type="text/css" href="{% static 'training/style.css' %}">
 
 {% if resource_data %}
     <h1>Personal Training Feed</h1>
-    <table>
+    <table id="table">
         <thead>
             <tr>
                 <th>Title</th>
                 <th>Notion Link</th>
-                <th>Training Date</th>
+                <th onclick="sortTableByDate()">Training Date</th>
                 <th>Who Ran It</th>
                 <th>Team</th>
             </tr>
@@ -20,7 +19,7 @@
         <tr>
             <td>{{ resource.title }}</td>
             <td>{{ resource.notion_link }}</td>
-            <td>{{ resource.training_date }}</td>
+            <td>{{ resource.training_date|date:"Y-m-d" }}</td>
             <td>{{ resource.user.username }}</td>
             <td>{{ resource.team }}</td>
         </tr>
@@ -32,3 +31,29 @@
 {% else %}
 <p>No resources available</p>
 {% endif %}
+
+<script>
+    let dateSortAsc = true;
+
+    function sortTableByDate() {
+        const table = document.getElementById("table");
+        if (!table) {
+            console.error("Table not found");
+            return;
+        }
+
+        const tbody = table.tBodies[0];
+        const rows = Array.from(tbody.rows);
+
+        rows.sort((a, b) => {
+            const dateA = new Date(a.cells[2].textContent.trim());
+            const dateB = new Date(b.cells[2].textContent.trim());
+
+            return dateSortAsc ? dateA - dateB : dateB - dateA;
+        });
+
+        rows.forEach(row => tbody.appendChild(row));
+
+        dateSortAsc = !dateSortAsc;
+    }
+</script>
