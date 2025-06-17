@@ -23,7 +23,7 @@
             <td>{{ resource.title }}</td>
             <td>{{ resource.notion_link }}</td>
             <td>{{ resource.training_date }}</td>
-            <td>{{ resource.user.username }}</td>
+            <td><a href="{% url 'training:personal' resource.user.id %}">{{ resource.user.username }}</a></td>
             <td>{{ resource.team }}</td>
         </tr>
         {% empty %}
