@@ -26,8 +26,8 @@ class UserView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs.get('pk')
-        user = Resource.objects.get(pk=pk)
-        context['username'] = user.user.username
+        user = User.objects.get(pk=pk)
+        context['username'] = user.username
         return context
 
 class TeamView(generic.ListView):
@@ -49,8 +49,6 @@ def thanks_view(request):
 def add(request, user_id):
     user = get_object_or_404(User, pk=user_id)
 
-    # if request.method == "POST":
-        #try:
     form = ResourceForm(request.POST) 
     if form.is_valid():
         resource = Resource(
