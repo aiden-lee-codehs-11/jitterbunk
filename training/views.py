@@ -21,7 +21,21 @@ class UserView(generic.ListView):
 
     def get_queryset(self):
         pk = self.kwargs.get('pk')
-        return  Resource.objects.filter(user_id=pk)
+        return Resource.objects.filter(user_id=pk)
+
+
+class TeamView(generic.ListView):
+    context_object_name = 'resource_data'
+    template_name = 'training/team.html'
+
+    def get_queryset(self):
+        return Resource.objects.filter(team=self.kwargs.get('team'))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['team'] = self.kwargs.get('team')  
+        return context
+
     
 def add(request, user_id):
     user = get_object_or_404(User, pk=user_id)

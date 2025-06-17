@@ -1,0 +1,17 @@
+{% if resource_data %}
+    <ul>
+        <h1>
+            All Resources for team {{team}}
+        </h1>
+        {% for resource in resource_data %}
+        <li>
+            {{ resource.title }}
+            {{ resource.notion_link }}
+            {{ resource.training_date }}
+            {{ resource.user }}
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+<p>No resources available</p>
+{% endif %}
