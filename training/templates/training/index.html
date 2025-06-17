@@ -5,7 +5,7 @@
             {{ resource.title }}
             {{ resource.notion_link }}
             {{ resource.training_date }}
-            {{ resource.user }}
+            <a href="{% url 'training:personal' resource.user.id %}">{{ resource.user.username }}</a>
             {{ resource.team }}
         </li>
         {% endfor %}
