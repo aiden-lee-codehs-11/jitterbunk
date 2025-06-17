@@ -36,6 +36,9 @@ class TeamView(generic.ListView):
         context['team'] = self.kwargs.get('team')  
         return context
 
+
+def thanks_view(request):
+    return render(request, "training/thanks.html")
     
 def add(request, user_id):
     user = get_object_or_404(User, pk=user_id)
@@ -53,7 +56,7 @@ def add(request, user_id):
         ) 
         resource.save()
 
-        return HttpResponseRedirect("/thanks")
+        return HttpResponseRedirect("/training/thanks")
 
     return render(request, "training/add.html", {"form": form, "user": user})
 

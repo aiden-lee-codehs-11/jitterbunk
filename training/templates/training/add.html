@@ -1,5 +1,40 @@
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'training/add.css' %}">
+
+
 <form action="{% url 'training:add' user.id %}" method="post">
-{% csrf_token %}
-{{ form }}
-<input type="submit" value="Add">
+    {% csrf_token %}
+
+    <h1>Add a resource for {{user.username}}</h1> 
+    {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+
+            {{ field }}
+
+            {% if field.help_text %}
+                <small class="help-text">{{ field.help_text }}</small>
+            {% endif %}
+
+            {% if field.errors %}
+                <ul class="errorlist">
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    {% if form.non_field_errors %}
+        <ul class="errorlist">
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <input type="submit" value="Add" class="submit-button">
 </form>
