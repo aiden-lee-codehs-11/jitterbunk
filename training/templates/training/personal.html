@@ -1,16 +1,34 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'training/style.css' %}">
+
 {% if resource_data %}
-    <ul>
+    <h1>Personal Training Feed</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Notion Link</th>
+                <th>Training Date</th>
+                <th>Who Ran It</th>
+                <th>Team</th>
+            </tr>
+        </thead>
+
+        <tbody>
         {% for resource in resource_data %}
-        <li>
-            {{ "hadfkjasldfja" }}
-            {{ resource.title }}
-            {{ resource.notion_link }}
-            {{ resource.training_date }}
-            {{ resource.user }}
-            {{ resource.team }}
-        </li>
+        <tr>
+            <td>{{ resource.title }}</td>
+            <td>{{ resource.notion_link }}</td>
+            <td>{{ resource.training_date }}</td>
+            <td>{{ resource.user.username }}</td>
+            <td>{{ resource.team }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">No data available.</td></tr>
         {% endfor %}
-    </ul>
+        </tbody>
+    </table>
 {% else %}
 <p>No resources available</p>
 {% endif %}
